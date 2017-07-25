@@ -1,0 +1,64 @@
+div.CSSKeyboard {
+    /*     border: green 0.5px solid; */
+    height: 50vh;
+    width: 50vw;
+}
+
+ul.keys {
+    /*     border: red 0.5px solid; */
+    height: 100%;
+    padding: 0;
+    position: relative;
+}
+
+ul.keys > li {
+    list-style: none;
+    float: left;
+    height: 100%;
+    border: 0.2px solid black;
+}
+
+.white {
+    width: 13.8%;
+    background: white;
+    border-radius: 0 0 2px 2px;
+    box-shadow: black 0px 3px 10px;
+}
+
+.black {
+    position: absolute;
+    top: 0;
+    height: 70% !important;
+    width: 7%;
+    background: #4b4b4b;
+    border-radius: 0 0 2px 2px;
+    box-shadow: black 2px 1px 6px 0px;
+}
+
+.black:hover {
+    box-shadow: none;
+}
+
+.white:hover {
+    box-shadow: none;
+}
+
+#Db {
+    left: 9.5%;
+}
+
+#Eb {
+    left: 24.5%;
+}
+
+#Gb {
+    left: 50.5%;
+}
+
+#Ab {
+    left: 65%;
+}
+
+#Bb {
+    left: 79.55%;
+}

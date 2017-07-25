@@ -3,11 +3,39 @@
 
 <head>
     <title>Synthesizer</title>
+    <link href="./keyboard.css" rel="stylesheet">
 </head>
 
 <body>
-    <script src="./node_modules/audiosynth/index.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="./index.js"></script>
+    <div class="container">
+        <div class="controls">
+            <input type="range">osc</input>
+            <input type="range"></input>
+            <input type="range"></input>
+            <input type="range"></input>
+            <input type="range" value="1" id="gain">gain</input>
+        </div>
+        <div class="keyboard">
+            <div class="CSSKeyboard">
+                <ul class="keys">
+                    <li class="white" value="261.63" id="C"></li>
+                    <li class="black" value="277.18" id="Db"></li>
+                    <li class="white" value="293.66" id="D"></li>
+                    <li class="black" value="311.13" id="Eb"></li>
+                    <li class="white" value="329.63" id="E"></li>
+                    <li class="white" value="349.23" id="F"></li>
+                    <li class="black" value="369.99" id="Gb"></li>
+                    <li class="white" value="392" id="G"></li>
+                    <li class="black" value="415.30" id="Ab"></li>
+                    <li class="white" value="440" id="A"></li>
+                    <li class="black" value="466.16" id="Bb"></li>
+                    <li class="white" value="493.88" id="B"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

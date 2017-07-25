@@ -1,37 +1,39 @@
-var AudioContext = window.AudioContext || window.webkitAudioContext;
+$(document).ready(function () {
+    // create web audio api context
+    var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    var distortion = audioCtx.createWaveShaper();
+    var gainNode = audioCtx.createGain();
+    var biquadFilter = audioCtx.createBiquadFilter();
+    var convolver = audioCtx.createConvolver();
 
-var context = new AudioContext();
-var synth = new AudioSynth(context);
+    var volume = $('#gain');
 
-// Default oscillator wave is sawtooth
+    // create Oscillator node
 
-// synth.setOscWave(0); // Sine Wave
-// synth.setOscWave(1); // Square Wave
-synth.setOscWave(2); // Sawtooth Wave
-// synth.setOscWave(3); // Triangle Wave
+    $('ul.keys').children().on('mousedown', function () { oscPlay(+this.value, 'sine') });
+    $('ul.keys').children().on('mouseup', function () { oscStop() });
 
-// function(MIDINote, amplitude, filterOffset, currentTime)
-synth.playNote(69, 1.0, 1.0, 0);
+    var oscillator;
 
-// Turn up stereo delay
-// synth.setDelayFeedback(0.5);
+    var oscPlay = function (freq, waveForm) {
+        oscillator = audioCtx.createOscillator();
+        oscillator.type = waveForm;
+        oscillator.frequency.value = freq; // value in hertz
+        console.log(volume.val());
+        gainNode.gain.value = volume.val();
+        oscillator.connect(gainNode);
+        // distortion.connect(biquadFilter);
+        // biquadFilter.connect(convolver);
+        // convolver.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        oscillator.start();
+    }
 
-// // Set delay time to tempo
-// synth.setDelayTimeTempo(110, 0.25);
+    function oscStop() {
+        oscillator.stop();
+    }
 
-// // Set notes using traditional note names
-// synth.playNote(synth.noteToMIDI('A', 4), 1.0, 1.0, 0);
 
-// // Set filter cuttoff
-// synth.setFilterCutoff(0.2);
 
-// // Increase amplitude release time
-// synth.setAmpReleaseTime(0.7);
 
-// // Set filter envelope modulation amount
-// synth.setFilterEnvMod(0.8);
-
-// Set filter attack time
-synth.setFilterAttackTime(0.6);
-
-// And so on
+})
