@@ -11,6 +11,7 @@ $(document).ready(function() {
     var filterFreq = $('#filterFreq');
     var filterGain = $('#filterGain');
     var filterType = $('#filterType');
+    var qFactor = $('#qFactor');
 
     var oscillator;
 
@@ -24,6 +25,7 @@ $(document).ready(function() {
         biquadFilter.frequency = +filterFreq.val();
         biquadFilter.type = filterType.val();
         biquadFilter.gain.value = +filterGain.val();
+        biquadFilter.Q.value = +qFactor.val();
         oscillator.connect(biquadFilter);
         biquadFilter.connect(gainNode);
         // convolver.connect(gainNode);
