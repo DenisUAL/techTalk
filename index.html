@@ -8,14 +8,29 @@
 
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="./custom.css"></script>
     <script src="./index.js"></script>
     <div class="container">
         <div class="controls">
-            <input type="range">osc</input>
+            <select id="waveform">
+                <option value="square">square</option>
+                <option value="sine">sine</option>
+                <option value="sawtooth">sawtooth</option>
+                <option value="triangle">triangle</option>
+            </select>
+            <select id="filterType">
+                <option value="lowpass">lowpass</option>
+                <option value="highpass">highpass</option>
+                <option value="bandpath">bandpath</option>
+                <option value="lowshelf">lowshelf</option>
+                <option value="highshelf">highshelf</option>
+                <option value="peaking">peaking</option>
+
+            </select>
+            <input id="filterFreq" type="range" value="5000" max="10000" min="20" step="20">filter frequency</input>
+            <input id="filterGain" type="range" value="25" max="100" min="0" step="5">filter gain</input>
             <input type="range"></input>
-            <input type="range"></input>
-            <input type="range"></input>
-            <input type="range" value="1" id="gain">gain</input>
+            <input id="gain" type="range" value="1" min="1">gain</input>
         </div>
         <div class="keyboard">
             <div class="CSSKeyboard">

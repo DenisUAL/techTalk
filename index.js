@@ -1,29 +1,31 @@
-$(document).ready(function () {
+$(document).ready(function() {
     // create web audio api context
-    var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    var audioCtx = new(window.AudioContext || window.webkitAudioContext)();
     var distortion = audioCtx.createWaveShaper();
     var gainNode = audioCtx.createGain();
     var biquadFilter = audioCtx.createBiquadFilter();
     var convolver = audioCtx.createConvolver();
 
     var volume = $('#gain');
-
-    // create Oscillator node
-
-    $('ul.keys').children().on('mousedown', function () { oscPlay(+this.value, 'sine') });
-    $('ul.keys').children().on('mouseup', function () { oscStop() });
+    var waveForm = $('#waveform');
+    var filterFreq = $('#filterFreq');
+    var filterGain = $('#filterGain');
+    var filterType = $('#filterType');
 
     var oscillator;
 
-    var oscPlay = function (freq, waveForm) {
+    var oscPlay = function(freq) {
         oscillator = audioCtx.createOscillator();
-        oscillator.type = waveForm;
+        oscillator.type = waveForm.val();
         oscillator.frequency.value = freq; // value in hertz
         console.log(volume.val());
         gainNode.gain.value = volume.val();
-        oscillator.connect(gainNode);
-        // distortion.connect(biquadFilter);
-        // biquadFilter.connect(convolver);
+        console.log(filterFreq.val());
+        biquadFilter.frequency = +filterFreq.val();
+        biquadFilter.type = filterType.val();
+        biquadFilter.gain.value = +filterGain.val();
+        oscillator.connect(biquadFilter);
+        biquadFilter.connect(gainNode);
         // convolver.connect(gainNode);
         gainNode.connect(audioCtx.destination);
         oscillator.start();
@@ -33,7 +35,12 @@ $(document).ready(function () {
         oscillator.stop();
     }
 
-
+    $('ul.keys').children().on('mousedown', function() {
+        oscPlay(+this.value)
+    });
+    $('ul.keys').children().on('mouseup', function() {
+        oscStop()
+    });
 
 
 })
