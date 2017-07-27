@@ -6,9 +6,8 @@
     <link href="./keyboard.css" rel="stylesheet">
 </head>
 
-<body>
+<body id="body">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="./custom.css"></script>
     <script src="./index.js"></script>
     <div class="container">
         <div class="controls">
@@ -30,7 +29,7 @@
             <input id="filterFreq" type="range" value="100" max="600" min="20" step="5">filter frequency</input>
             <input id="filterGain" type="range" value="25" max="100" min="0" step="5">filter gain</input>
             <input id="qFactor" type="range" value="20" max="100" min="0" step="1">Q factor</input>
-            <input id="gain" type="range" value="1" min="1">gain</input>
+            <input id="gain" type="range" value="1" min="1" max="100">gain</input>
         </div>
         <div class="keyboard">
             <div class="CSSKeyboard">

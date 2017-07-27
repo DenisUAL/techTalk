@@ -4,6 +4,21 @@ div.CSSKeyboard {
     width: 50vw;
 }
 
+#body {
+  position: relative;
+  height: 100vh;
+}
+
+.container {
+  height: 50vh;
+  width: 50vw;
+  padding: 20px;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+}
+
+
 ul.keys {
     /*     border: red 0.5px solid; */
     height: 100%;

@@ -1,48 +1,65 @@
-$(document).ready(function() {
-    // create web audio api context
-    var audioCtx = new(window.AudioContext || window.webkitAudioContext)();
-    var distortion = audioCtx.createWaveShaper();
-    var gainNode = audioCtx.createGain();
-    var biquadFilter = audioCtx.createBiquadFilter();
-    var convolver = audioCtx.createConvolver();
+$(document)
+    .ready(function () {
+        // create web audio api context
+        var audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+        var gainNode = audioCtx.createGain();
+        var biquadFilter = audioCtx.createBiquadFilter();
 
-    var volume = $('#gain');
-    var waveForm = $('#waveform');
-    var filterFreq = $('#filterFreq');
-    var filterGain = $('#filterGain');
-    var filterType = $('#filterType');
-    var qFactor = $('#qFactor');
+        var volume = $('#gain');
+        var waveForm = $('#waveform');
+        var filterFreq = $('#filterFreq');
+        var filterGain = $('#filterGain');
+        var filterType = $('#filterType');
+        var qFactor = $('#qFactor');
 
-    var oscillator;
+        var oscillator = audioCtx.createOscillator();
 
-    var oscPlay = function(freq) {
-        oscillator = audioCtx.createOscillator();
-        oscillator.type = waveForm.val();
-        oscillator.frequency.value = freq; // value in hertz
-        console.log(volume.val());
-        gainNode.gain.value = volume.val();
-        console.log(filterFreq.val());
-        biquadFilter.frequency = +filterFreq.val();
-        biquadFilter.type = filterType.val();
-        biquadFilter.gain.value = +filterGain.val();
-        biquadFilter.Q.value = +qFactor.val();
-        oscillator.connect(biquadFilter);
-        biquadFilter.connect(gainNode);
-        // convolver.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
-        oscillator.start();
-    }
+        var updateParams = function () {
 
-    function oscStop() {
-        oscillator.stop();
-    }
+            oscillator.type = waveForm.val();
 
-    $('ul.keys').children().on('mousedown', function() {
-        oscPlay(+this.value)
-    });
-    $('ul.keys').children().on('mouseup', function() {
-        oscStop()
-    });
+            gainNode.gain.value = +volume.val();
+
+            biquadFilter.type = filterType.val();
+            biquadFilter.frequency.value = +filterFreq.val();
+            biquadFilter.gain.value = +filterGain.val();
+            biquadFilter.Q.value = +qFactor.val();
+
+            oscillator.connect(biquadFilter);
+            biquadFilter.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+        }
+
+        function oscStop() {
+            oscillator.stop();
+        }
+
+        var isPlaying = false;
+
+        var setInt;
+        $('ul.keys')
+            .children()
+            .on('dblclick', function () {
+                if (!isPlaying) {
+                    isPlaying = true;
+                    oscillator.start();
+                    setInt = setInterval(() => updateParams(), 5)
+                } else {
+                    isPlaying = false;
+                    clearInterval(setInt);
+                    oscStop();
+                }
+            });
+
+        $('ul.keys')
+            .children()
+            .on('click', function () {
+                oscillator.frequency.value = +this.value
+            });
+    })
 
 
-})
+
+
+
+
